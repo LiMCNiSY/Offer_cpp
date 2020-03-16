@@ -6,16 +6,16 @@ public:
         {
             return result[n];
         }
-        long long fibNMinusQne=1;
-        long long fibNMinusTwo=0;
-        long long fibN=0;
+        long long a=1;
+        long long b=0;
+        //long long fibN=0;
         for(int i=2;i<=n;++i)
         {
-            fibN=fibNMinusQne+fibNMinusTwo;
-            fibNMinusTwo=fibNMinusQne;
-            fibNMinusQne=fibN;
+            a = a + b;
+			b = a - b;
+			a %= 1000000007;
         }
-        fibN=fibN%1000000007;
-        return fibN;
+       
+        return a;
     }
 };
