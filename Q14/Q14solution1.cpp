@@ -1,17 +1,23 @@
 class Solution {
 public:
-    int movingCount(int m, int n, int k) {
-        vector<vector<bool>> visit(m, vector<bool>(n, 0));
-        return D(0, 0, m, n, k, visit);
-    }
-
-    int D(int i, int j, int m, int n, int k, vector<vector<bool>>& visit) {
-        if (i<0||i==m||j<0||j==n||visit[i][j]||i%10+i/10+j%10+j/10>k)
-            return 0;
-        visit[i][j] = true;
-        return D(i+1, j, m, n, k, visit) + 
-               D(i-1, j, m, n, k, visit) + 
-               D(i, j+1, m, n, k, visit) + 
-               D(i, j-1, m, n, k, visit) + 1;
+    int cuttingRope(int n) {
+        if (n<= 3) return 1 * (n- 1);
+        int m = 1;
+        if (n% 3 == 2) 
+        {
+            n-= 2;
+            m *= 2;
+        }
+        if (n % 3 == 1) 
+        {
+            n-= 4;
+            m*= 4;
+        }
+        while(n> 0) 
+        {
+            m*= 3;
+            n-= 3;
+        }
+        return m;
     }
 };

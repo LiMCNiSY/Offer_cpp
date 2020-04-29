@@ -1,23 +1,12 @@
 class Solution {
 public:
-    int cuttingRope(int n) {
-        if (n<= 3) return 1 * (n- 1);
-        int m = 1;
-        if (n% 3 == 2) 
+    int hammingWeight(uint32_t n) {
+        int count = 0;
+        while(n!=0)
         {
-            n-= 2;
-            m *= 2;
+            if(n % 2 == 1) count++;//也可以用与运算即if(n&1) 
+            n=n>>1;
         }
-        if (n % 3 == 1) 
-        {
-            n-= 4;
-            m*= 4;
-        }
-        while(n> 0) 
-        {
-            m*= 3;
-            n-= 3;
-        }
-        return m;
+        return count;
     }
 };

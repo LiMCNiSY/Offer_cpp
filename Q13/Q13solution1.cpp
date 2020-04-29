@@ -1,32 +1,17 @@
 class Solution {
 public:
-    bool exist(vector<vector<char>>& board, string word) {
-        if (board.empty()||board[0].empty()) 
-            return word.empty();
-        for (int row = 0; row < board.size(); ++row) {
-            for (int col = 0; col < board[0].size(); ++col) {
-                if (backtrack(board, row, col, word, 0)) return true;
-            }
-        }
-        
-        return false;
+    int movingCount(int m, int n, int k) {
+        vector<vector<bool>> visit(m, vector<bool>(n, 0));
+        return D(0, 0, m, n, k, visit);
     }
-    bool backtrack(vector<vector<char>> &board, int row, int col, 
-                   const string &word, int len) {
-        if (len== word.size()) 
-            return true;
-        if (row < 0 || row >= board.size() || 
-            col < 0 || col >= board[0].size()) 
-            return false;
-        if (word[len] != board[row][col]) 
-            return false;
-        board[row][col] = '*';
-        if (backtrack(board, row - 1, col, word, len + 1) || 
-            backtrack(board, row + 1, col, word, len + 1) ||
-            backtrack(board, row, col - 1, word, len + 1) || 
-            backtrack(board, row, col + 1, word, len + 1)) 
-            return true;
-        board[row][col] = word[len];
-        return false;
+
+    int D(int i, int j, int m, int n, int k, vector<vector<bool>>& visit) {
+        if (i<0||i==m||j<0||j==n||visit[i][j]||i%10+i/10+j%10+j/10>k)
+            return 0;
+        visit[i][j] = true;
+        return D(i+1, j, m, n, k, visit) + 
+               D(i-1, j, m, n, k, visit) + 
+               D(i, j+1, m, n, k, visit) + 
+               D(i, j-1, m, n, k, visit) + 1;
     }
 };

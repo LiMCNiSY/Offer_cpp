@@ -1,22 +1,13 @@
 class Solution {
 public:
-    int numWays(int n) {
-        int result[2]={0,1};
-        if(n+1<2)
-        {
-            return result[n+1];
+    int minArray(vector<int>& numbers) {
+        int i = 0, j = numbers.size() - 1;
+        while (i < j) {
+            int m = (i + j) / 2;
+            if (numbers[m] > numbers[j]) i = m + 1;
+            else if (numbers[m] < numbers[j]) j = m;
+            else j--;
         }
-        long long a=1;
-        long long b=0;
-        //long long fibN=0;
-        for(int i=2;i<=n+1;++i)
-        {
-            a = a + b;
-			b = a - b;
-			a %= 1000000007;
-        }
-        return a;
+        return numbers[i];
     }
 };
-
-//不难看出是斐波那契数列 
